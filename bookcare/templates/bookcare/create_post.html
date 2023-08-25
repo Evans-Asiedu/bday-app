@@ -1,0 +1,12 @@
+{% extends "bookcare/layout.html" %}
+
+{% block body %}
+    <div>
+        <h2><strong>Post Form</strong></h2>
+        <form action="{% url 'create_post' %}", method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-primary float-right">Post</button>
+        </form>
+    </div>
+{% endblock %}

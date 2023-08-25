@@ -1,0 +1,48 @@
+{% extends "bookcare/layout.html" %} 
+
+
+{% block body %}    
+    <div class="pb-2 my-2">
+        <h2 class="d-inline p-2"><strong>Doctors</strong></h2>
+        <div class="d-inline p-2  float-right mb-4"> 
+            <i class="fas fa-search fa-lg" hidden="true" style="color: #4885ed;" id="searchbar_icon"></i>
+        </div>
+        <div>
+            <div class="input-group mb-3" id="searchbar_box">
+                
+            </div>
+        </div>
+    </div>
+
+    {% for doctor in all_doctors %}
+        <div class="border-0 border-muted rounded p-3 mb-1">
+            <div class="row">
+                <div class="col-5">
+                    <div class="card">
+                        <img class="card-image-top rounded-circle" style="height: 21rem" src="{{ doctor.image }}" alt="">
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title"><strong>Dr. {{ doctor.first_name }} {{doctor.last_name}}</strong></h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text" style="word-wrap: nowrap;">
+                                {{ doctor.about }}
+                            </p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <a href="{% url 'bookappointment' doctor.id %}" class=" btn btn-primary btn-sm float-right {% if not user.is_authenticated %} disabled {% endif %}">Book Appointment</a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    {% empty %}
+        <div>No list available</div>
+    {% endfor %}
+   
+{% endblock %}
+
+

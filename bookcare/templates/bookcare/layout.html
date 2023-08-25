@@ -1,0 +1,114 @@
+{% load static %} 
+
+{% url 'index' as index %} 
+{% url 'doctors' as doctors %}
+{% url 'exercises' as exercises %}
+{% url 'dieting' as dieting %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--custom tags-->
+        <link href="{% static 'bookcare/styles.css' %}" rel="stylesheet">
+        <link href="{% static 'bookcare/sidebar.css' %}" rel="stylesheet">
+        <script src="{% static 'bookcare/index.js' %}"></script>
+
+        <!--Bootstrap tag-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" 
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+        
+        
+        <!--Extra tags to add to the headers-->
+        <script src="https://kit.fontawesome.com/7faee5c6e1.js" crossorigin="anonymous"></script>
+
+         <!--Date time picker tag, tempus dominus-->
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css">
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"></script>
+
+     
+    </head>
+    <body id="body-page">
+        <header class="header" id="header">
+            <div class="header_toggler">
+                <i class="fas fa-angle-right" id="header-toggler"></i>
+            </div>
+            <div>
+                <ul class="nav">
+                    {% if user.is_authenticated %}
+                        {% if user.is_doctor %}
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-sm btn-primary" href="{% url 'create_post' %}">Make a Post</a>
+                            </li>
+
+                        {% endif %}
+                        <li class="nav-item dropdown" style="width: 68px; height: 40px;">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" 
+                                aria-haspopup="true" aria-expanded="false" >
+                              <i class="fas fa-user fa-lg"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="{% url 'index' %}">{{user.username}}</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="{% url 'appointment' %}">Appointment</a>
+                              <a class="dropdown-item" href="{% url 'favouritepost' %}">Favourite Post</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                            </div>
+                        </li>
+                       
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" href="{% url 'login' %}">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" href="{% url 'register' %}">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </header>
+        <div class="side_bar" id="side-bar">
+            <nav class="sidebar_items">
+                <div>
+                    <div class="sidebar_logo hide-inner">
+                        <span class="sidebar_categories">Categories</span>
+                    </div>
+                    <div class="sidebar_item_list">
+                        <a href="{{ index }}" class="sidebar_item_link {% if request.path == index %} active {% endif %}">
+                            <i class="fas fa-table fa-lg"></i>
+                            <span class="sidebar_item">All</span> 
+                        </a>
+                        <a href="{{ doctors }}" class="sidebar_item_link {% if request.path == doctors %} active {% endif %}">
+                            <i class="fas fa-user-md fa-lg"></i>
+                            <span class="sidebar_item">Doctors</span> 
+                        </a>
+                        <a href="{{ exercises }}" class="sidebar_item_link {% if request.path == exercises %} active {% endif %}">
+                            <i class="fas fa-walking fa-lg"></i>
+                            <span class="sidebar_item">Exercises</span> 
+                        </a>
+                        <a href="{{ dieting }}" class="sidebar_item_link {% if request.path == dieting %} active {% endif %}">
+                            <i class="fas fa-hamburger fa-lg"></i>
+                            <span class="sidebar_item">Dieting</span> 
+                        </a>
+                       
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div>
+            <div class="main-title">BookCare</div>
+            <hr class="mb-0">
+        </div>
+        <div class="height-100 container">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

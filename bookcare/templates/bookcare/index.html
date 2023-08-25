@@ -1,0 +1,57 @@
+{% extends "bookcare/layout.html" %} 
+
+{% block body %}
+    <div class="pb-2 mt-2 mb-4">
+        <h2 class="d-inline p-2"><strong>{{ title }}</strong></h2>
+        <div class="d-inline p-2  float-right mb-4"> 
+            <i class="fas fa-search fa-lg" hidden="true" style="color: #4885ed;" id="searchbar_icon"></i>
+        </div>
+    </div>
+   
+    {% for post in all_posts %} 
+        <div class="border border-muted rounded p-3 mb-1">
+            <div class="row">
+                <div class="col-5">
+                    <div class="card">
+                        <img class="card-image-top" src="{{ post.image }}" alt="">
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text text-justify">
+                                {{ post.content }}
+                            </p>        
+                        </div>
+                        <div class="card-footer text-muted">
+                            <span>
+                                <div class="mb-2 text-nowrap">
+                                    <small>Category: {{ post.category }} </small>
+                                </div>
+                                <span>
+                                    <small class="text-muted">Date Published: {{ post.post_date }}</small> 
+                                </span>
+                            </span>
+                            {% if post in user_liked_posts %}
+                                <span>
+                                    <i id="like-heart-{{post.id}}" class="fas fa-heart fa-lg float-right" style="color: #d63f24; cursor: pointer;" onclick="like_post('{{post.id}}')"></i>  
+                                </span>
+                            {% else %}
+                                <span>
+                                    <i id="like-heart-{{post.id}}" class="far fa-heart fa-lg float-right" style="color: #d63f24; cursor: pointer;" onclick="like_post('{{post.id}}')"></i>  
+                                </span>
+                            {% endif %}
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% empty %} 
+        <div>No posts available</div>
+    {% endfor %}
+
+{% endblock %}

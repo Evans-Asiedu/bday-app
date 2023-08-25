@@ -1,0 +1,23 @@
+:root {
+    --first-blue: rgba(21, 95, 144, 0.8);
+    --first-blue-light: rgba(92, 143, 174, 0.8);
+    --white-color: #f0f4fc;
+}
+
+body {
+    padding: 10px;
+}
+
+.shadow {
+    -webkit-box-shadow: 0px 0px 7px 3px rgb(216 216 216);
+    -moz-box-shadow: 0px 0px 7px 3px rgb(216 216 216);
+    box-shadow: 0px 0px 7px 3px rgb(216 216 216);
+}
+
+.main-title {
+    text-align: center;
+    font-size: 4.5rem;
+    padding: 45px 0 0 0;
+}
+
+

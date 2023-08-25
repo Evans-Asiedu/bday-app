@@ -1,0 +1,16 @@
+{% extends "bookcare/layout.html" %}
+
+{% block body %}
+
+    <div>
+        <h2 class="mb-3"><strong>Appointment Form</strong></h2>
+        <h5 class="mt-2 mb-5 text-center">Appointment with Dr. {{doctor.first_name }} {{doctor.last_name}}</h5>
+        <form action="{% url 'bookappointment' doctor.id %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <a href="{% url 'doctors' %}" class="btn btn-primary float-right ml-2">Cancel</a>
+            <button type="submit" class="btn btn-primary float-right ml-2">Submit</button>
+        </form>
+    </div>
+
+{% endblock %}

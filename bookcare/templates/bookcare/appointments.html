@@ -1,0 +1,36 @@
+{% extends "bookcare/layout.html" %}   
+
+
+{% block body %}    
+    <div class="pb-2 my-2">
+        <h2 class="d-inline p-2"><strong>List of Appointment</strong></h2>
+    </div>
+    {% for appointment in all_appointments %}
+        <div class="border-0 border-muted rounded p-3 mb-1">
+            <div class="card">
+                <div class="card-body">
+                    {% if user == appointment.client %}
+                        <h6 class="mb-3">Hello {{appointment.client.first_name}},</h6>
+                        <p>You have an appointment with Dr. {{appointment.doctor.first_name}} </p>
+                    {% else %}
+                        <h6 class="mb-3">Hello Dr. {{appointment.doctor.first_name}},</h6>
+                        <p>You have an appointment with {{appointment.client.first_name}} </p>
+                    {% endif %}
+                    <div class="text-muted">
+                        <p>Date & Time: {{appointment.appointment_date}}</p>
+                        <p class="mb-1">Purpose: {{appointment.category}}</p>
+                    </div>      
+                </div>
+                <div class="card-footer text-muted">
+                    <form action="{% url 'appointment' appointment.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-danger btn-sm float-right" name="delete" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>  
+    {% empty %}
+        <div>No list available</div>
+    {% endfor %}
+    
+{% endblock %}
